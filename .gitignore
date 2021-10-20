@@ -135,5 +135,7 @@ dmypy.json
 images/
 *.pyc
 
+
 *.txt
+.idea/
 
