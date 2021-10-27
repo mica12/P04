@@ -135,6 +135,14 @@ dmypy.json
 images/
 *.pyc
 
+controllers/__pycache__/controleur_joueur.cpython-38.pyc
+controllers/__pycache__/controleur_principal.cpython-38.pyc
+models/__pycache__/joueur_model.cpython-38.pyc
+models/joueurs.json
+
+
+
+
 
 *.txt
 .idea/

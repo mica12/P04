@@ -98,10 +98,8 @@ class ControleurMenuTournoi:
 
 
 class ControleurRetourMenuPrincipal:
-    def __call__(self):
+    def __init__(self):
         self.controleur_menu_principal = ControleurMenuPrincipal()
+
+    def __call__(self):
         self.controleur_menu_principal.run()
-
-
-
-
