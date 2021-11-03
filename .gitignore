@@ -133,12 +133,7 @@ dmypy.json
 *.csv
 *images
 images/
-*pyc
 
-controllers/__pycache__
-models/__pycache__
-models/joueurs.json
-views/__pycache__
 
 
 
