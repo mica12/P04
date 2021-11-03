@@ -137,10 +137,10 @@ class ControleurRapportJoueur:
         self.joueur_bdd = joueur_model.joueur_bdd
         self.menu_afficher = vues_menu.MenuAfficher()
         self.joueur = joueur_model.Joueur()
-        self.liste_joueur_serialise = []
         self.afficher_rapport_joueur = vues.VueRapportJoueur()
 
     def run(self):
+        self.liste_joueur_serialise = []
         controleur_menu_principal = controleur_principal.ControleurRetourMenuPrincipal()
         for joueur in self.joueur_bdd:
             self.liste_joueur_serialise.append(self.joueur.deserialiser(joueur))
