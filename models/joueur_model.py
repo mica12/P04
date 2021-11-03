@@ -1,5 +1,6 @@
 from tinydb import TinyDB
 
+
 joueur_bdd = TinyDB('models/joueurs.json')
 
 class Joueur:
@@ -28,7 +29,7 @@ class Joueur:
         dico_donnees_joueur["prenom"] = self.prenom_joueur
         dico_donnees_joueur["naissance"] = self.date_de_naissance_joueur
         dico_donnees_joueur["genre"] = self.genre_joueur
-        dico_donnees_joueur["classement"] = self.rang_joueur
+        dico_donnees_joueur["classement"] = int(self.rang_joueur)
         dico_donnees_joueur["score"] = self.score_tournoi_joueur
         dico_donnees_joueur["id"] = self.id_joueur
         return dico_donnees_joueur
@@ -42,6 +43,17 @@ class Joueur:
                              )
         id_joueur = joueur_bdd.insert(self.joueur.serialiser())
         joueur_bdd.update({"id": id_joueur}, doc_ids=[id_joueur])
+
+    def deserialiser(self, joueur_serialise):
+        nom_joueur = joueur_serialise["nom"]
+        prenom_joueur = joueur_serialise["prenom"]
+        date_de_naissance_joueur = joueur_serialise["naissance"]
+        genre_joueur = joueur_serialise["genre"]
+        rang_joueur = joueur_serialise["classement"]
+        score_tournoi_joueur = joueur_serialise["score"]
+        id_joueur = joueur_serialise["id"]
+        return Joueur(nom_joueur, prenom_joueur, date_de_naissance_joueur, genre_joueur, rang_joueur,
+                      score_tournoi_joueur, id_joueur)
 
 
 

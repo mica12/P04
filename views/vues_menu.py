@@ -50,3 +50,4 @@ class MenuAfficher:
                     return choix
 
             print("vous n'avez pas entré la bonne valeur")
+

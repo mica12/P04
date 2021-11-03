@@ -1,6 +1,8 @@
 from models import joueur_model
-
-
+from views import vues
+from views import vues_menu
+from operator import attrgetter
+from controllers import controleur_principal
 
 class ControleurCreerJoueur:
     """creer un joueur"""
@@ -36,7 +38,7 @@ class ControleurCreerJoueur:
             self.joueur.nom_joueur = input("entrez un nom du joueur : ")
             if len(self.joueur.nom_joueur) > 0:
                 nom_joueur_valide = True
-            else :
+            else:
                 print("vous devez entrer un nom de joueur valide")
         return self.joueur.nom_joueur
 
@@ -103,14 +105,15 @@ class ModifierClassementJoueur:
 
     def __init__(self):
         self.joueur_bdd = joueur_model.joueur_bdd
-        self.controle_joueur = ControleurCreerJoueur()
+        # self.controle_joueur = ControleurCreerJoueur()
+        self.list_joueur = vues.VueJoueurs()
 
     def run(self):
-        print(self.joueur_bdd.all())
+        self.list_joueur.run()
         id_joueur_valide = False
         while not id_joueur_valide:
             id_nouveau_joueur = input("entrez l'identifiant du joueur: ")
-            if id_nouveau_joueur.isnumeric() and int(id_nouveau_joueur) <= len(self.joueur_bdd):
+            if 0 < int(id_nouveau_joueur) <= len(self.joueur_bdd) and id_nouveau_joueur.isnumeric():
                 id_joueur_valide = True
             else:
                 print("vous devez entrer un identifiant de joueur valide")
@@ -124,13 +127,38 @@ class ModifierClassementJoueur:
                 print("vous devez entrer un classement de joueur valide")
         joueur_a_modifier = self.joueur_bdd.get(doc_id=int(id_nouveau_joueur))
         joueur_a_modifier["classement"] = nouveau_classement_joueur
-        self.joueur_bdd.update({"classement": int(nouveau_classement_joueur)},doc_ids=[int(id_nouveau_joueur)])
-        print(self.joueur_bdd.all())
+        self.joueur_bdd.update({"classement": int(nouveau_classement_joueur)}, doc_ids=[int(id_nouveau_joueur)])
+        self.list_joueur.afficher_un_joueur(joueur_a_modifier)
+
 
 class ControleurRapportJoueur:
 
+    def __init__(self):
+        self.joueur_bdd = joueur_model.joueur_bdd
+        self.menu_afficher = vues_menu.MenuAfficher()
+        self.joueur = joueur_model.Joueur()
+        self.liste_joueur_serialise = []
+        self.afficher_rapport_joueur = vues.VueRapportJoueur()
+
     def run(self):
-        pass
+        controleur_menu_principal = controleur_principal.ControleurRetourMenuPrincipal()
+        for joueur in self.joueur_bdd:
+            self.liste_joueur_serialise.append(self.joueur.deserialiser(joueur))
+        self.afficher_rapport_joueur()
 
+        entree = self.menu_afficher.run(self.menu_afficher.menu_rapport_joueur)
 
+        if entree == "1":
+            self.liste_joueur_serialise.sort(key=attrgetter("nom_joueur"))
+            self.afficher_rapport_joueur.affichage_alphabetique(self.liste_joueur_serialise)
+            input()
+            ControleurRapportJoueur.run(self)
 
+        if entree == "2":
+            self.liste_joueur_serialise.sort(key=attrgetter("rang_joueur"))
+            self.afficher_rapport_joueur.affichage_classement(self.liste_joueur_serialise)
+            input()
+            ControleurRapportJoueur.run(self)
+
+        if entree == "3":
+            return controleur_menu_principal()

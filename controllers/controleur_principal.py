@@ -14,8 +14,11 @@ class ControleurMenuPrincipal:
         self.menu_afficher = vues_menu.MenuAfficher()
         self.controleur_menu_joueur = ControleurMenuJoueur()
         self.controleur_menu_tournoi = ControleurMenuTournoi()
+        self.vue_principal = vues.VuePrincipale()
+
 
     def run(self):
+        self.vue_principal()
         entree = self.menu_afficher.run(self.menu_afficher.menu_principal)
 
         if entree == "1":
@@ -34,15 +37,16 @@ class ControleurMenuPrincipal:
 class ControleurMenuJoueur:
 
     def __init__(self):
+        self.vue_titre_joueur = vues.VueTitreJoueur()
         self.menu_choisi = None
-        self.vue = vues.VueJoueur()
+        self.vue = vues.VueJoueurs()
         self.menu_afficher = vues_menu.MenuAfficher()
         self.creer_joueur = controleur_joueur.ControleurCreerJoueur()
         self.creer_rapport_joueur = controleur_joueur.ControleurRapportJoueur()
         self.modifier_classement_joueur = controleur_joueur.ModifierClassementJoueur()
 
     def run(self):
-        print("vous etes dans controleurMenuJoueur")
+        self.vue_titre_joueur()
         entree = self.menu_afficher.run(self.menu_afficher.menu_joueur)
 
         if entree == "1":
