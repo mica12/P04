@@ -51,7 +51,7 @@ class Tournoi:
         return Tournoi(nom_tournoi, lieu_tournoi, date_tournoi, nombre_de_tour_tournoi, liste_des_tours,
                        controle_du_temps, identifiants_joueurs_tournoi, identifiant_tournoi, description_tournoi)
 
-    def ajouter_tournoi_bdd(self, dico_donnees_joueur):
+    def ajouter_tournoi_bdd(self, dico_donnees_tournoi):
         self.tournoi = Tournoi(dico_donnees_tournoi["nom tournoi"],
                                dico_donnees_tournoi["lieu tournoi"],
                                dico_donnees_tournoi["date tournoi"],

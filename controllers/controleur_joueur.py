@@ -13,15 +13,9 @@ class ControleurCreerJoueur:
                                     "naissance": "",
                                     "genre": "",
                                     "classement": ""}
-        self.dico_nom_joueur = None
-        self.dico_prenom_joueur = None
-        self.dico_naissance_joueur = None
-        self.dico_genre_joueur = None
-        self.dico_classement_joueur = None
-        self.mois_de_naissance = None
-        self.jour_de_naissance = None
-        self.annee_de_naissance = None
+
         self.joueur = joueur_model.Joueur()
+
 
     def run(self):
 
@@ -31,6 +25,9 @@ class ControleurCreerJoueur:
         self.dico_donnees_joueur["genre"] = self.ajouter_genre_joueur()
         self.dico_donnees_joueur["classement"] = self.ajouter_classement_joueur()
         self.joueur.ajouter_joueur_bdd(self.dico_donnees_joueur)
+        controleur_menu_principal = controleur_principal.ControleurRetourMenuPrincipal()
+        controleur_menu_principal()
+
 
     def ajouter_nom_joueur(self):
         nom_joueur_valide = False
