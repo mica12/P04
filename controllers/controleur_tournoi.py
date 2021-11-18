@@ -25,6 +25,11 @@ class ControleurCreerTournoi:
         self.dico_donnees_tournoi["nombre de tour tournoi"] = 4
         self.dico_donnees_tournoi["controle du temps"] = self.ajouter_controle_du_temps()
         self.dico_donnees_tournoi["description du tournoi"] = self.ajouter_description_tournoi()
+        self.tournoi.ajouter_tournoi_bdd(self.dico_donnees_tournoi)
+        controleur_menu_principal = controleur_principal.ControleurRetourMenuPrincipal()
+        controleur_menu_principal()
+
+
 
     def ajouter_nom_tournoi(self):
         nom_tournoi_valide = False
@@ -49,7 +54,7 @@ class ControleurCreerTournoi:
     def ajouter_date_tournoi(self):
         jour_tournoi_valide = False
         while not jour_tournoi_valide:
-            self.jour_tournoi= input("entrez le jour de naissance sur 2 chiffres : ")
+            self.jour_tournoi= input("entrez le jour sur 2 chiffres : ")
             if len(self.jour_tournoi) == 2 and int(self.jour_tournoi) <= 31:
                 jour_tournoi_valide = True
             else:
@@ -57,7 +62,7 @@ class ControleurCreerTournoi:
 
         mois_tournoi_valide = False
         while not mois_tournoi_valide:
-            self.mois_tournoi = input("entrez le mois de naissance sur 2 chiffres : ")
+            self.mois_tournoi = input("entrez le mois sur 2 chiffres : ")
             if len(self.mois_tournoi) == 2 and int(self.mois_tournoi) <= 12:
                 mois_tournoi_valide = True
             else:

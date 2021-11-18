@@ -33,9 +33,9 @@ class Tournoi:
         dico_donnees_tournoi["nombre de tour tournoi"] = self.nombre_de_tour_tournoi
         dico_donnees_tournoi["liste de tour tournoi"] = self.liste_des_tours
         dico_donnees_tournoi["controle du temps"] = self.controle_du_temps
-        dico_donnees_tournoi["identifiants des joueurs du tournoi"] = self.identifiants_joueurs_tournoi
-        dico_donnees_tournoi["identifiant du tournoi"] = self.identifiant_tournoi
-        dico_donnees_tournoi["description du tournoi"] = self.description_tournoi
+        #dico_donnees_tournoi["identifiants des joueurs du tournoi"] = self.identifiants_joueurs_tournoi
+        #dico_donnees_tournoi["identifiant du tournoi"] = self.identifiant_tournoi
+        #dico_donnees_tournoi["description du tournoi"] = self.description_tournoi
         return dico_donnees_tournoi
 
     def deserialiser_tournoi(self, tournoi_serialise):
@@ -57,8 +57,8 @@ class Tournoi:
                                dico_donnees_tournoi["date tournoi"],
                                dico_donnees_tournoi["nombre de tour tournoi"],
                                dico_donnees_tournoi["controle du temps"],
-                               dico_donnees_tournoi["description du tournoi"],
-                               dico_donnees_tournoi["identifiants des joueurs du tournoi"]
+                               dico_donnees_tournoi["description du tournoi"]
+                               #dico_donnees_tournoi["identifiants des joueurs du tournoi"]
                                )
         identifiant_tournoi = tournoi_bdd.insert(self.tournoi.serialiser_tournoi())
         tournoi_bdd.update({"id": identifiant_tournoi}, doc_ids=[identifiant_tournoi])
