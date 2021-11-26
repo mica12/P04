@@ -17,6 +17,8 @@ class ControleurCreerTournoi:
 
         self.tournoi = tournoi_model.Tournoi()
         self.menu_afficher = vues_menu.MenuAfficher()
+        self.list_joueur = vues.VueJoueurs()
+        self.joueur_ids = []
 
     def run(self):
         self.dico_donnees_tournoi["nom tournoi"] = self.ajouter_nom_tournoi()
@@ -25,11 +27,10 @@ class ControleurCreerTournoi:
         self.dico_donnees_tournoi["nombre de tour tournoi"] = 4
         self.dico_donnees_tournoi["controle du temps"] = self.ajouter_controle_du_temps()
         self.dico_donnees_tournoi["description du tournoi"] = self.ajouter_description_tournoi()
+        self.ajouter_joueur_tournoi()
         self.tournoi.ajouter_tournoi_bdd(self.dico_donnees_tournoi)
         controleur_menu_principal = controleur_principal.ControleurRetourMenuPrincipal()
         controleur_menu_principal()
-
-
 
     def ajouter_nom_tournoi(self):
         nom_tournoi_valide = False
@@ -99,6 +100,37 @@ class ControleurCreerTournoi:
             else:
                 print("vous devez entrer une description valide")
         return self.tournoi.description_tournoi
+
+    def ajouter_joueur_tournoi(self):
+        controleur_menu_principal = controleur_principal.ControleurRetourMenuPrincipal()
+        choisir_joueur_valide = None
+        while not choisir_joueur_valide :
+            choisir_joueur = input("souhaitez vous ajouter un joueur : ")
+            if choisir_joueur == "oui":
+                choisir_joueur_valide = True
+            elif choisir_joueur == "non":
+                choisir_joueur_valide = True
+                controleur_menu_principal()
+            else:
+                print("vous devez choisir oui ou non")
+        self.list_joueur.run()
+        choix_joueur_id_valide = False
+        while not choix_joueur_id_valide:
+            choix_joueur_id = input("choisir un identifiant de joueur dans la liste : ")
+            if int(choix_joueur_id) <= 0 or int(choix_joueur_id) > len(joueur_model.joueur_bdd):
+                print("vous devez choisir un joueur dans la liste")
+            elif choix_joueur_id in self.joueur_ids:
+                print("vous avez deja choisi ce joueur")
+            else:
+                choix_joueur_id_valide = True
+
+        self.joueur_ids.append(choix_joueur_id)
+        print("liste des joueur du tournoi" + str(self.joueur_ids))
+        self.ajouter_joueur_tournoi()
+
+        for id_joueur in self.joueur_ids:
+            joueur = joueur_model.joueur_bdd.get(doc_id=id_joueur)
+            self.joueur_serialise.append(joueur)
 
 
 class ControleurLancerTournoi:
